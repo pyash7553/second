@@ -1,0 +1,54 @@
+560. Subarray Sum Equals K
+
+class Solution {
+    public int subarraySum(int[] n, int k) {
+        int ans=0;
+		int sum=0;
+		Map<Integer,Integer> m=new HashMap<>();
+		
+		
+		
+		for(int it:n) {
+			sum+=it;
+			if(sum==k) {
+				ans+=1;
+			}
+			
+			if(m.containsKey(sum-k)) {
+				ans+=m.get(sum-k);
+			}
+			m.put(sum, m.getOrDefault(sum, 0)+1);
+		}
+        return ans;
+    }
+}
+
+===============================================================
+
+974. Subarray Sums Divisible by K
+
+class Solution {
+    public int subarraysDivByK(int[] n, int k) {
+        int ans=0;
+		int sum=0;
+		Map<Integer,Integer> m=new HashMap<>();
+		int rem=0;
+		m.put(0, 1);
+		
+		for(int it:n) {
+			sum+=it;
+			rem=sum%k;
+			if(rem<0) {
+				rem+=k;
+			}
+			if(m.containsKey(rem)) {
+				ans+=m.get(rem);
+				m.put(rem, m.get(rem)+1);
+			}
+			else {
+				m.put(rem, 1);
+			}
+		}
+        return ans;
+    }
+}
